@@ -2,14 +2,12 @@ package design.material.immersiveimagesictskills;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.RadioButton;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener
 {
-  ImageView imageView;
 
   RadioButton centerBtn;
   RadioButton fitEndBtn;
@@ -19,8 +17,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
 
-    imageView = (ImageView) findViewById(R.id.imageView);
-
     centerBtn = (RadioButton) findViewById(R.id.centerBtn);
     fitEndBtn = (RadioButton) findViewById(R.id.fitEndBtn);
 
@@ -29,16 +25,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     centerBtn.setChecked(true);
 
-    imageView.setOnClickListener(this);
-
   }
 
   /**
-   * If radio button, not that in focus, is pressed
-   * then return that button view, else null.
-   *
+   * Obtain reference to selected button
    * @param view The most recently clicked radio button.
-   * @return The clicked radio button if different to view param.
+   * @return The clicked radio button if different to parameter view.
    */
   public RadioButton getSelectedRadio(View view) {
     RadioButton[] btns = {centerBtn, fitEndBtn};
@@ -56,22 +48,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     // Determine if a radio button clicked and implement handler
     RadioButton checkedRadio = view instanceof RadioButton ? getSelectedRadio(view) : null;
     if (checkedRadio != null) {
-      // Untick all buttons except that in focus.
+      // Untick all buttons except currently selected.
       if (checkedRadio != view) {
         checkedRadio.setChecked(false);
       }
       String radioId = ((RadioButton) view).getText().toString();
       switch (radioId) {
         case "CENTER":
-          imageView.setScaleType(ImageView.ScaleType.CENTER);
+          Toast.makeText(this, "Button CENTER selected", Toast.LENGTH_SHORT).show();
           break;
         case "FIT_END":
-          imageView.setScaleType(ImageView.ScaleType.FIT_END);
+          Toast.makeText(this, "Button FIT_END selected", Toast.LENGTH_SHORT).show();
           break;
       }
     }
     else {
-      // Other view handlers, such as clicking on the ImageView
+      // Other view handlers
     }
   }
 }
